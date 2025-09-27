@@ -7,13 +7,13 @@ import fetchNotes from "@/lib/api";
 import NoteDetailsClient from "./Notes.client";
 
 interface NotesProps {
-  params: { slug?: string[] };
+  params: Promise<{ slug: string[] }>;
 }
 
 const Notes = async ({ params }: NotesProps) => {
   const queryClient = new QueryClient();
 
-  const slug = params.slug ?? [];
+  const { slug } = await params;
   const tag = slug[0] === "All" ? undefined : slug[0];
 
   const searchWord = "";
